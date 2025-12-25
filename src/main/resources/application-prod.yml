@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/iskalkin
+    username: moneycoachapp
+    password: ${DB_PASSWORD}   # Пароль вынесен в переменную окружения
