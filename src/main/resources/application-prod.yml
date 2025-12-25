@@ -1,5 +1,5 @@
 spring:
   datasource:
     url: ${DB_URL}
-    username: moneycoachapp
+    username: ${USER}
     password: ${DB_PASSWORD}   # Пароль вынесен в переменную окружения
