@@ -11,12 +11,5 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
 
-  # Скрипты инициализации
-  sql:
-    init:
-      mode: always
-      schema-locations: classpath:schema.sql
-      data-locations: "classpath:data.sql"
-
 # Активный профиль задаётся через JVM-параметр:
 # -Dspring.profiles.active=prod или test
