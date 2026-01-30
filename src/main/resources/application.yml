@@ -13,3 +13,11 @@ spring:
 
 # Активный профиль задаётся через JVM-параметр:
 # -Dspring.profiles.active=prod или test
+
+# OpenAPI / Swagger
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  show-actuator: false
