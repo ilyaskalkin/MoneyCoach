@@ -14,6 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OperationController {
 
+    //todo поменять энтити на дто в апи
+
     private final OperationService service;
 
     @PostMapping("/add")

@@ -1,5 +1,6 @@
 package ru.iskalkin.moneycoach.service;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.iskalkin.moneycoach.dto.OperationSearchRequest;
 import ru.iskalkin.moneycoach.model.Operation;
 import ru.iskalkin.moneycoach.repository.OperationRepository;
@@ -7,17 +8,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class OperationService {
 
     private final OperationRepository repository;
 
     public Operation add(Operation operation) {
+        log.info("calling add: " + operation);
         operation.setId(null);
         return repository.save(operation);
     }
@@ -28,6 +30,7 @@ public class OperationService {
 
     @Transactional(readOnly = true)
     public List<Operation> getAll() {
+        log.info("calling getAll");
         return repository.findAll();
     }
 
