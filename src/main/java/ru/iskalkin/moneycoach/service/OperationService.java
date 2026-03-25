@@ -1,6 +1,7 @@
 package ru.iskalkin.moneycoach.service;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.iskalkin.moneycoach.dto.OperationDto;
 import ru.iskalkin.moneycoach.dto.OperationSearchRequest;
 import ru.iskalkin.moneycoach.model.Operation;
 import ru.iskalkin.moneycoach.repository.OperationRepository;
@@ -18,10 +19,11 @@ public class OperationService {
 
     private final OperationRepository repository;
 
-    public Operation add(Operation operation) {
-        log.info("calling add: " + operation);
+    public OperationDto add(OperationDto dto) {
+        log.info("calling add: " + dto);
+        Operation operation = dto.toEntity();
         operation.setId(null);
-        return repository.save(operation);
+        return OperationDto.from(repository.save(operation));
     }
 
     public void delete(Long id) {
@@ -29,13 +31,13 @@ public class OperationService {
     }
 
     @Transactional(readOnly = true)
-    public List<Operation> getAll() {
+    public List<OperationDto> getAll() {
         log.info("calling getAll");
-        return repository.findAll();
+        return repository.findAll().stream().map(OperationDto::from).toList();
     }
 
     @Transactional(readOnly = true)
-    public List<Operation> find(OperationSearchRequest request) {
+    public List<OperationDto> find(OperationSearchRequest request) {
         // Примитивный фильтр по критериям
         List<Operation> all = repository.findAll();
 
@@ -51,6 +53,7 @@ public class OperationService {
                 .filter(o -> request.getDescription() == null
                         || o.getDescription().toLowerCase()
                         .contains(request.getDescription().toLowerCase()))
+                .map(OperationDto::from)
                 .toList();
     }
 }

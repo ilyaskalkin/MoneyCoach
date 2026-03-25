@@ -1,7 +1,7 @@
 package ru.iskalkin.moneycoach.controller;
 
+import ru.iskalkin.moneycoach.dto.OperationDto;
 import ru.iskalkin.moneycoach.dto.OperationSearchRequest;
-import ru.iskalkin.moneycoach.model.Operation;
 import ru.iskalkin.moneycoach.service.OperationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,14 +14,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OperationController {
 
-    //todo поменять энтити на дто в апи
-
     private final OperationService service;
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public Operation add(@RequestBody Operation operation) {
-        return service.add(operation);
+    public OperationDto add(@RequestBody OperationDto dto) {
+        return service.add(dto);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -31,12 +29,12 @@ public class OperationController {
     }
 
     @GetMapping("/all")
-    public List<Operation> getAll() {
+    public List<OperationDto> getAll() {
         return service.getAll();
     }
 
     @PostMapping("/find")
-    public List<Operation> find(@RequestBody OperationSearchRequest request) {
+    public List<OperationDto> find(@RequestBody OperationSearchRequest request) {
         return service.find(request);
     }
 }
