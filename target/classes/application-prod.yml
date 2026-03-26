@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${USER}
+    password: ${DB_PASSWORD}   # Пароль вынесен в переменную окружения
+
+server:
+  port: ${PORT:8080}
+  address: 0.0.0.0
