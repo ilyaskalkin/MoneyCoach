@@ -1,0 +1,16 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Maven build output
+target/
+
+# VS Code
+.vscode/
+
+# GigaIDE
+.gigaide
