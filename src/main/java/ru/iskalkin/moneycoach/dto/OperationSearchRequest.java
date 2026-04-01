@@ -11,4 +11,5 @@ public class OperationSearchRequest {
     private Short kind;
     private Short account;
     private String description;
+    private Boolean includeStorned;
 }

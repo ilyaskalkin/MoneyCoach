@@ -24,7 +24,7 @@ public class OperationController {
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable("id") Long id) {
         service.delete(id);
     }
 
@@ -36,5 +36,10 @@ public class OperationController {
     @PostMapping("/find")
     public List<OperationDto> find(@RequestBody OperationSearchRequest request) {
         return service.find(request);
+    }
+
+    @PatchMapping("/{id}/storno")
+    public OperationDto storno(@PathVariable("id") Long id) {
+        return service.storno(id);
     }
 }

@@ -3,6 +3,8 @@ package ru.iskalkin.moneycoach.service;
 import lombok.extern.slf4j.Slf4j;
 import ru.iskalkin.moneycoach.dto.OperationDto;
 import ru.iskalkin.moneycoach.dto.OperationSearchRequest;
+import ru.iskalkin.moneycoach.exception.OperationAlreadyStornedException;
+import ru.iskalkin.moneycoach.exception.OperationNotFoundException;
 import ru.iskalkin.moneycoach.model.Operation;
 import ru.iskalkin.moneycoach.repository.OperationRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,17 @@ public class OperationService {
         repository.deleteById(id);
     }
 
+    public OperationDto storno(Long id) {
+        log.info("calling storno: id={}", id);
+        Operation operation = repository.findById(id)
+                .orElseThrow(() -> new OperationNotFoundException(id));
+        if (Boolean.TRUE.equals(operation.getStorned())) {
+            throw new OperationAlreadyStornedException(id);
+        }
+        operation.setStorned(true);
+        return OperationDto.from(repository.save(operation));
+    }
+
     @Transactional(readOnly = true)
     public List<OperationDto> getAll() {
         log.info("calling getAll");
@@ -53,6 +66,8 @@ public class OperationService {
                 .filter(o -> request.getDescription() == null
                         || o.getDescription().toLowerCase()
                         .contains(request.getDescription().toLowerCase()))
+                .filter(o -> Boolean.TRUE.equals(request.getIncludeStorned())
+                        || !Boolean.TRUE.equals(o.getStorned()))
                 .map(OperationDto::from)
                 .toList();
     }
