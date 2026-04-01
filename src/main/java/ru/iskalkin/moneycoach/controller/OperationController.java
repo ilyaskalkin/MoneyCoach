@@ -38,6 +38,11 @@ public class OperationController {
         return service.find(request);
     }
 
+    @PutMapping("/{id}")
+    public OperationDto update(@PathVariable("id") Long id, @RequestBody OperationDto dto) {
+        return service.update(id, dto);
+    }
+
     @PatchMapping("/{id}/storno")
     public OperationDto storno(@PathVariable("id") Long id) {
         return service.storno(id);

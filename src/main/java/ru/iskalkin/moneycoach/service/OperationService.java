@@ -32,6 +32,18 @@ public class OperationService {
         repository.deleteById(id);
     }
 
+    public OperationDto update(Long id, OperationDto dto) {
+        log.info("calling update: id={}, dto={}", id, dto);
+        Operation operation = repository.findById(id)
+                .orElseThrow(() -> new OperationNotFoundException(id));
+        operation.setDate(dto.getDate());
+        operation.setAmount(dto.getAmount());
+        operation.setDescription(dto.getDescription());
+        operation.setKind(dto.getKind());
+        operation.setAccount(dto.getAccount());
+        return OperationDto.from(repository.save(operation));
+    }
+
     public OperationDto storno(Long id) {
         log.info("calling storno: id={}", id);
         Operation operation = repository.findById(id)
