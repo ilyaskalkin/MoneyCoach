@@ -14,6 +14,12 @@ spring:
 # Активный профиль задаётся через JVM-параметр:
 # -Dspring.profiles.active=prod или test
 
+telegram:
+  bot:
+    token: ""
+    allowed-chat-id: 0
+    screenshots-dir: "C:\\vibe web\\screenshots"
+
 # OpenAPI / Swagger
 springdoc:
   api-docs:
